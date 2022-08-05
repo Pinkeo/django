@@ -1,0 +1,48 @@
+{% extends 'hi/base.html' %}
+{% block title %}{{ post.title_tag }}{% endblock %}
+ 
+
+ {% block content%}
+
+ <style type="text/css">
+    .post-body{
+        padding: 4rem;
+        background-color: rgba(255, 255, 255, .15); 
+       
+        backdrop-filter: blur(20px);
+    }
+    @media (max-width: 500px){
+
+        .post-body{padding: 1rem;}
+    }
+  
+</style>
+
+<div class="post-body" style="color: ;">
+    <h1>{{ post.title }}</h1>
+    <small>By: {{ post.author }} | {{post.post_date}} 
+
+    {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}  
+            | <a href="{% url 'update_post' post.pk %}">Edit</a>
+            | <a href="{% url 'delete_post' post.pk %}">Delete</a>
+        {% endif %}
+    {% endif %}
+    </small>
+    <hr>
+    <br/>
+    {{ post.body|safe}}
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <a href="{% url 'Home' %}" class="btn btn-secondary">Back</a>
+    {% endblock %}
+
+    
+
+</div>
+
+
+</html>
